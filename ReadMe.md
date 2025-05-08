@@ -101,5 +101,5 @@ Options (WIP):
 * [ ] Initial CLI tool
 * [ ] Voice-over sync
 * [ ] Live preview during rendering
-* [ ] GUI (optional future)
+* [ ] Support for JupyterNotebooks (optional future)
 * [ ] Export subtitles and timestamps
