@@ -82,7 +82,6 @@ class PythonCodeParser:
     def get_other_statements(self):
         statements = []
         for node in ast.walk(self.tree):
-            # Extract assignments (e.g., a = 1)
             if isinstance(node, ast.Assign):
                 targets = [ast.dump(target) for target in node.targets]
                 value = ast.dump(node.value)
@@ -92,7 +91,6 @@ class PythonCodeParser:
                     'value': value,
                     'line': node.lineno
                 })
-            # Extract expressions (e.g., print(10))
             elif isinstance(node, ast.Expr):
                 statements.append({
                     'type': 'expr',
