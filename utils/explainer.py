@@ -1,33 +1,40 @@
-from parser import PythonCodeParser
-from langchain.chat_models import ChatGoogleGenerativeAI
+import os
+from .parser import PythonCodeParser
+from langchain_google_genai import ChatGoogleGenerativeAI
 import time
+from dotenv import load_dotenv
 
-llm = ChatGoogleGenerativeAI(temperature=0)
+load_dotenv()
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.0-flash",
+    temperature=0,
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 
 def _explain_with_retry(prompt, max_retries=5, delay=10):
     retries = 0
     while retries < max_retries:
         try:
-            response = llm([{ 'role': 'user', 'content': prompt }])
-            if isinstance(response, list) and response and 'content' in response[0]:
-                return response[0]['content']
-            if isinstance(response, str):
-                return response
-            retries += 1
+            response = llm.invoke(prompt)
+            if hasattr(response, 'content'):
+                return response.content
+            return str(response)
         except Exception as e:
+            print(f"Error during explanation: {e}")
             if 'rate limit' in str(e).lower() or '429' in str(e):
                 time.sleep(delay)
-                retries += 1
             else:
                 time.sleep(2)
-                retries += 1
+            retries += 1
     return 'Explanation could not be generated due to repeated errors.'
 
 
 def get_blockwise_explanation(code):
     parser = PythonCodeParser(code)
     blocks = parser.get_logical_parts()
+    print("Extracted logical blocks:", blocks)
     explanations = {}
     for block_type, block_list in blocks.items():
         explanations[block_type] = []
@@ -50,6 +57,7 @@ def get_blockwise_explanation(code):
             )
             explanation = _explain_with_retry(prompt)
             explanations[block_type].append({'header': block_desc, 'explanation': explanation})
+            print(f"Generated explanation for {block_type}: {block_desc}")
     return explanations
 
 
@@ -73,3 +81,25 @@ def get_full_explanation(code):
     )
     explanation = _explain_with_retry(prompt)
     return explanation
+
+
+def _remove_markdown(text):
+    lines = []
+    for line in text.split('\n'):
+        if line.strip().startswith('#'):
+            lines.append(line.lstrip('#').strip())
+        else:
+            lines.append(line)
+    
+    text = '\n'.join(lines)
+    text = text.replace('**', '').replace('*', '')
+    text = text.replace('__', '').replace('_', '')
+    text = text.replace('`', '')
+    
+    lines = []
+    for line in text.split('\n'):
+        if line.strip() and line[0].isdigit() and '. ' in line:
+            line = line.replace('. ', ') ', 1)
+        lines.append(line)
+    
+    return '\n'.join(lines)
