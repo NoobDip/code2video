@@ -86,3 +86,47 @@ class VideoCreator:
 def create_explanation_video(frames_dir, audio_files, output_path, frame_duration=5.0):
     creator = VideoCreator(frame_duration=frame_duration)
     return creator.create_video(frames_dir, audio_files, output_path)
+
+def concatenate_videos(video_paths, output_path):
+    try:
+        print("Loading video clips for concatenation...")
+        clips = []
+        for video_path in video_paths:
+            if os.path.exists(video_path):
+                from moviepy.video.io.VideoFileClip import VideoFileClip
+                clip = VideoFileClip(video_path)
+                clips.append(clip)
+                print(f"Loaded: {video_path} (duration: {clip.duration:.2f}s)")
+            else:
+                print(f"Warning: Video file not found: {video_path}")
+        
+        if not clips:
+            print("Error: No valid video clips to concatenate")
+            return False
+        
+        print("Concatenating video clips...")
+        final_video = concatenate_videoclips(clips)
+        
+        print("Writing final concatenated video...")
+        final_video.write_videofile(
+            output_path,
+            fps=24,
+            codec='libx264',
+            audio_codec='aac',
+            preset='medium',
+            audio_bitrate='192k',
+            threads=4,
+            logger=None
+        )
+        
+        for clip in clips:
+            clip.close()
+        final_video.close()
+        
+        return True
+        
+    except Exception as e:
+        print(f"Error concatenating videos: {e}")
+        import traceback
+        traceback.print_exc()
+        return False

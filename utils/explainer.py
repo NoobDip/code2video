@@ -35,7 +35,6 @@ def get_blockwise_explanation(code):
     parser = PythonCodeParser(code)
     blocks = parser.get_logical_parts()
     
-    # Split the input code into lines for extracting snippets later
     code_lines = code.splitlines()
     
     all_blocks = []
@@ -104,7 +103,7 @@ def get_blockwise_explanation(code):
             f"You are an expert Python instructor. Provide a detailed, structured explanation for the following code block. "
             f"Do not include any code snippets or markdown formatting in your explanation."
             f"Do not criticize the code or its quality, just explain its purpose and functionality."
-            f"Format your answer as: \n1. Block Overview\n2. Line-by-line Explanation\n\nBlock: {block_desc}\n\nCode:\n{code_snippet}\n"
+            f"Format your answer as: \n1. Line-by-line Explanation\n\nBlock: {block_desc}\n\nCode:\n{code_snippet}\n"
         )
         explanation = _explain_with_retry(prompt)
         explanations[block_type].append({'header': block_desc, 'explanation': explanation})
@@ -131,7 +130,7 @@ def get_full_explanation(code):
         "You are an expert Python instructor. Given the following code, provide a comprehensive, structured explanation that covers the overall purpose, how the blocks interact, and a summary of the logic."
         f"Do not include any code snippets or markdown formatting in your explanation."
         "Do not criticize the code or its quality, just explain its purpose and functionality."
-        "Format your answer as: \n1. High-level Overview\n2. Block Interactions\n3. Step-by-step Logic\n4. Key Takeaways.\n\nFull Code Context:\n" + context 
+        "Format your answer as: \n1. High-level Overview\n2. Step-by-step Logic\n\nFull Code Context:\n" + context 
     )
     explanation = _explain_with_retry(prompt)
     return explanation
