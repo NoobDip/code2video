@@ -205,52 +205,7 @@ The system produces three types of videos:
 - `GOOGLE_API_KEY`: Required for accessing Google Gemini AI model
 - Font paths and system configurations are automatically detected
 
-### Customization Options
-- **Video Resolution**: Default 1920x1080, configurable in renderer
-- **Font Sizes**: Adjustable for different screen sizes
-- **Speech Rate**: Configurable TTS speed
-- **Color Schemes**: Customizable background and text colors
-- **Frame Duration**: Adjustable timing for video segments
-
-## 🛠️ Technical Architecture
-
-### Processing Pipeline
-1. **Code Input**: Accepts Python source code files
-2. **AST Parsing**: Analyzes code structure using Python's AST
-3. **AI Analysis**: Generates explanations using Google Gemini
-4. **Visual Rendering**: Creates highlighted code frames
-5. **Audio Generation**: Converts text to speech
-6. **Video Assembly**: Combines frames and audio into final video
-
-### Error Handling
-- **Robust Retry Logic**: Handles API rate limits and temporary failures
-- **File Management**: Automatic cleanup of temporary files
-- **Validation**: Checks for required dependencies and configurations
-- **Graceful Degradation**: Falls back to default options when optimal ones fail
-
-## 🚀 Advanced Features
-
-### AI Integration
-- **Context Preservation**: Maintains code context across explanations
-- **Intelligent Sectioning**: Automatically identifies logical code boundaries
-- **Natural Language**: Generates human-readable, educational explanations
-- **Error Recovery**: Handles API limitations with intelligent retry mechanisms
-
-### Video Quality
-- **Professional Formatting**: Industry-standard video formats and quality
-- **Synchronized Narration**: Perfect timing between visual and audio content
-- **Scalable Output**: Supports different resolutions and frame rates
-- **Optimized Encoding**: Efficient video compression for sharing and storage
-
 ## 🔮 Future Enhancements
-
-### Planned Features
-- **Multi-Language Support**: Extend beyond Python to other programming languages
-- **Interactive Elements**: Add clickable code segments and annotations
-- **Custom Themes**: More visual themes and styling options
-- **Batch Processing**: Process multiple files simultaneously
-- **Web Interface**: Browser-based interface for easier usage
-- **Export Options**: Additional output formats (PowerPoint, PDF, etc.)
 
 ### Potential Integrations
 - **IDE Plugins**: Direct integration with popular code editors
@@ -276,10 +231,6 @@ We welcome contributions to improve Code2Video! Here are ways you can help:
 3. Make your changes with appropriate tests
 4. Submit a pull request with detailed description
 
-## 📄 License
-
-This project is open source and available under the MIT License. See LICENSE file for details.
-
 ## 🆘 Support
 
 ### Common Issues
@@ -292,15 +243,3 @@ This project is open source and available under the MIT License. See LICENSE fil
 - Create an issue for bugs or feature requests
 - Check existing issues for solutions to common problems
 - Review the documentation for detailed usage instructions
-
-## 🙏 Acknowledgments
-
-- **Google Gemini**: For providing advanced AI language model capabilities
-- **Pygments**: For excellent syntax highlighting functionality
-- **MoviePy**: For powerful video processing capabilities
-- **pyttsx3**: For reliable text-to-speech conversion
-- **Python Community**: For the excellent ecosystem of libraries
-
----
-
-**Code2Video** - Transforming code into engaging educational content through the power of AI and automation.
