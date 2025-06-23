@@ -184,11 +184,11 @@ The project includes `example.py`, which demonstrates an email processing script
 ### Generated Videos
 The system produces three types of videos:
 1. **example_summary.mp4**: Overview-focused presentation
-<video src="output/video/example_summary.mp4" controls width="500"></video>
+[![Watch the summary video]](output/video/example_summary.mp4)
 2. **example_blockwise.mp4**: Detailed block-by-block analysis
-<video src="output/video/example_blockwise.mp4" controls width="500"></video>
+[![Watch the blockwise video]](output/video/example_blockwise.mp4)
 3. **example_full.mp4**: Comprehensive explanation combining both approaches
-<video src="output/video/example_full.mp4" controls width="500"></video>
+[![Watch the full video]](output/video/example_full.mp4)
 
 ## ⚙️ Configuration
 
