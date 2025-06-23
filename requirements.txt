@@ -1,2 +1,8 @@
 langchain-google-genai
 python-dotenv
+Pillow
+pygments
+gTTS
+pyttsx3
+pydub
+moviepy
