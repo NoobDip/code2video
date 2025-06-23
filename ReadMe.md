@@ -31,7 +31,7 @@ Code2Video is an innovative Python application that automatically converts sourc
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/NoobDip/code2video.git
    cd code2video
    ```
 
