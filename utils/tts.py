@@ -46,37 +46,15 @@ class TextToSpeech:
                 os.remove(output_path)
             return False
 
-def generate_audio_for_explanation(explanation_text, temp_dir=r"temp\audio", speed_factor=1.2):
-    os.makedirs(temp_dir, exist_ok=True)
-    
-    for file in os.listdir(temp_dir):
-        if file.endswith((".mp3", ".wav")):
-            os.remove(os.path.join(temp_dir, file))
-    
-    print(f"Generating audio with speed factor: {speed_factor}")
-    tts = TextToSpeech(speed_factor=speed_factor)
-    chunks = split_into_chunks(explanation_text)
-    print(f"Split text into {len(chunks)} chunks")
-    
-    audio_files = []
-    for i, chunk in enumerate(chunks):
-        output_path = os.path.join(temp_dir, f'audio_{i:04d}.wav')
-        max_retries = 3
-        for attempt in range(max_retries):
-            if tts.create_audio(chunk, output_path):
-                audio_files.append(output_path)
-                break
-            elif attempt < max_retries - 1:
-                print(f"Retry {attempt + 1} for chunk {i}...")
-                time.sleep(2)
-        else:
-            print(f"Warning: Failed to generate audio for chunk {i} after {max_retries} attempts")
-    
-    if not audio_files:
-        raise Exception("No audio files were generated successfully")
-    
-    print(f"Successfully generated {len(audio_files)} audio files")
-    return audio_files
+import os
+from gtts import gTTS
+
+def generate_audio_for_explanation(text, output_dir):
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "output.mp3")
+    tts = gTTS(text)
+    tts.save(output_path)
+    return [output_path]
 
 def split_into_chunks(text, max_chunk_size=500):
     paragraphs = text.split('\n\n')
