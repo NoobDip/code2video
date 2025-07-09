@@ -232,6 +232,7 @@ We welcome contributions to improve Code2Video! Here are ways you can help:
 - Check existing issues for solutions to common problems
 - Review the documentation for detailed usage instructions
 
+
 ### macOS Support
 
 If you're running this project on macOS:
