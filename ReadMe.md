@@ -231,3 +231,34 @@ We welcome contributions to improve Code2Video! Here are ways you can help:
 - Create an issue for bugs or feature requests
 - Check existing issues for solutions to common problems
 - Review the documentation for detailed usage instructions
+
+### macOS Support
+
+If you're running this project on macOS:
+
+1. **Switch to gTTS for text-to-speech**  
+   Instead of `pyttsx3`, use `gTTS`, which is more stable on macOS when generating multiple files.
+
+   Install:
+   ```bash
+   pip install gTTS
+   ```
+
+   Replace the `generate_audio_for_explanation` function in `tts.py` with the following:
+   ```bash
+   from gtts import gTTS
+   import os
+
+   def generate_audio_for_explanation(text, output_dir):
+       tts = gTTS(text)
+       output_path = os.path.join(output_dir, "output.mp3")
+       tts.save(output_path)
+       return [output_path]
+   ```
+
+2. **Install ffmpeg (includes ffprobe)**
+   Required for checking audio file duration:
+   ```bash
+   brew install ffmpeg
+   ```
+   
